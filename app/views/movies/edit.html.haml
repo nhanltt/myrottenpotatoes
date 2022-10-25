@@ -1,0 +1,6 @@
+%div{:id => "banner"}=link_to "RottenPotatoes", movies_path 
+%h2 Edit Movie 
+
+= form_tag movie_path(@movie), :method => :put do
+  = render :partial => 'movie_form'
+  = submit_tag 'Update Movie Info'

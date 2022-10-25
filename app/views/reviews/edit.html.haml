@@ -1,0 +1,8 @@
+%div{:id => "banner"}=link_to "RottenPotatoes", movies_path 
+%h1 Edit review
+ 
+= form_tag movie_review_path(@movie), :method => :put do
+  %label How many potatoes:
+  = select_tag 'review[potatoes]', options_for_select(1..5)
+  = text_field :review, 'comments'
+  = submit_tag 'Update Review'

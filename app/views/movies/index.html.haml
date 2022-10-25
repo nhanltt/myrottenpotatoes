@@ -1,0 +1,45 @@
+%div{:id => "banner"}=link_to "RottenPotatoes", movies_path
+
+=render :partial => 'sessions/login'
+
+%h1 All Movies
+
+= form_tag movies_path, :method => :get, :id => 'filter' do
+  = label_tag(:threshold, "Potatoes")
+  = select_tag :threshold, options_for_select(1..5)
+  = check_box_tag(:for_kids)
+  = label_tag(:for_kids, "For kids")
+  = check_box_tag(:recently_viewed)
+  = label_tag(:for_kids, "Recently Viewed")
+  = submit_tag 'Submit'
+
+%table#movies
+  %thead
+    %tr
+      %th ID
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
+      %th Reviews
+  %tbody
+    - @movies.each_with_index do |movie, index|
+      %tr
+        %td= index
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+        %td= link_to "See all reviews #{movie.title}", movie_reviews_path(movie)
+
+-# add to end of index.html.haml
+= link_to 'Add new movie', new_movie_path
+
+%h1 Search TMDb for a movie
+
+= form_tag :action => 'search_tmdb' do
+
+  %label{:for => 'search_terms'} Search Terms
+  = text_field_tag 'search_terms'
+  = submit_tag 'Search TMDb'
+

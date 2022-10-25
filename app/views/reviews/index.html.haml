@@ -1,0 +1,14 @@
+%div{:id => "banner"}=link_to "RottenPotatoes", movies_path
+
+=render :partial => 'sessions/login'
+
+%h1 All Reviews #{@movie.title}
+
+- @movie.reviews.all.each do |review|
+    %div{:class => "review"}
+        %p{:class => 'username'}= "User: #{Moviegoer.find(review.moviegoer_id).name}"
+        %div{:class => "content-review"}
+            %p= "Potatoes: #{review.potatoes}"
+            %p= "Comments: #{review.comments}"
+            - if @current_user && (review.moviegoer_id == @current_user.id)
+                %p= link_to "Edit review #{Movie.find(review.movie_id).title}", edit_movie_review_path(@movie, review)

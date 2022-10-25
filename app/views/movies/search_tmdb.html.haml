@@ -1,0 +1,17 @@
+%div{:id => "banner"}=link_to "RottenPotatoes", movies_path
+%h1 Search Movies Result
+- if @movies == nil || params[:search_terms] == ''
+  %p= "Cannot find any movie for #{params[:search_terms]}"
+  %p= link_to "Come back to movie list", movies_path
+- else
+  - @movies.each_with_index do |movie, index|
+    %div{:class => "grid-container"}
+      %div{:class => "grid-item"}
+        %img{:class => "poster_img", :alt => "Poster of #{movie.title}", :src => "https://image.tmdb.org/t/p/original/#{movie.poster_path}"}
+      %div{:class => "grid-item"}
+        %p{:class => "bold-text"}= "#{movie.title}" 
+        %p= "Voting average: #{movie.vote_average}"
+        %p= "Popularity: #{movie.popularity}"
+        %p= "Release date: #{movie.release_date}"
+        %p= "Overview: #{movie.overview}"
+        %p= link_to "Add #{movie.title} to movie list", new_movie_path(movie)
